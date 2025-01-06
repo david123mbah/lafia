@@ -19,6 +19,8 @@ dependencies:
   get: ^4.6.6  
   flutter_native_splash: ^2.4.3
   circular_bottom_navigation: ^2.4.0
+  flutter_charts: ^0.5.2
+  percent_indicator: ^4.2.4
 
 # Development dependencies  
 dev_dependencies:  

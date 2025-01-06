@@ -23,7 +23,7 @@ class MyTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),

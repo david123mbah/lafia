@@ -12,10 +12,10 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   // List of icon paths for navigation icons
   final List<String> iconPaths = [
-    "lib/assets/Images/10_home.png",
-    "lib/assets/Images/20_chat.png",
-    "lib/assets/Images/18_chart.png",
-    "lib/assets/Images/13_user.png",
+    "lib/assets/Images/10  home.png",
+    "lib/assets/Images/20  chat.png",
+    "lib/assets/Images/18  chart.png",
+    "lib/assets/Images/13  user.png",
   ];
 
   @override

@@ -18,12 +18,12 @@ class CustomProgressIndicator extends StatelessWidget {
         if (index == current - 1) {
           // Active indicator
           return Container(
-            width: 44,
+            width: 20,
             height: 6,
             margin: const EdgeInsets.symmetric(horizontal: 2),
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(10),
             ),
           );
         } else {
@@ -34,7 +34,7 @@ class CustomProgressIndicator extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 4),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Colors.white,
             ),
           );
         }

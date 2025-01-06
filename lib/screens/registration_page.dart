@@ -8,7 +8,7 @@ class CurvedPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = AppColors.green200 // Use the appropriate color
+      ..color = Color(0xFFA4B794) // Use the appropriate color
       ..style = PaintingStyle.fill;
 
     var path = Path();
