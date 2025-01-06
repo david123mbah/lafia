@@ -13,10 +13,10 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Mindful Tracker',
                 style: TextStyle(
                   fontSize: 24,
@@ -26,14 +26,14 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
+                  Text(
                     'SEP',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
                   ),
-                  const Text(
+                  Text(
                     '11',
                     style: TextStyle(
                       fontSize: 24,
@@ -58,8 +58,8 @@ class _MindFullTrackerState extends State<MindFullTracker> {
           _buildTrackerCard(
             title: 'Sleep Quality',
             value: 'Insomniac (~2h Avg)',
-            leftImagePath: 'lib/assets/Images/sleep_left.png',
-            rightImagePath: 'lib/assets/Images/sleep_right.png',
+            leftImagePath: 'lib/assets/Images/mindicons/sleep.png',
+            rightImagePath: 'lib/assets/Images/mindicons/sleeptime.png',
             color: Colors.purple.shade50,
             onTap: () {
               // Add navigation logic
@@ -68,8 +68,8 @@ class _MindFullTrackerState extends State<MindFullTracker> {
           _buildTrackerCard(
             title: 'Mindful Journal',
             value: '64 Day Streak',
-            leftImagePath: 'lib/assets/Images/journal_left.png',
-            rightImagePath: 'lib/assets/Images/journal_right.png',
+            leftImagePath: 'lib/assets/Images/mindicons/dbbbc.png',
+            rightImagePath: 'lib/assets/Images/mindicons/vcvcv.png',
             color: Colors.orange.shade50,
             trailing: _buildStreakDots(),
             onTap: () {
@@ -128,8 +128,8 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                 ),
                 child: Image.asset(
                   leftImagePath,
-                  width: 24,
-                  height: 24,
+                  width: 34,
+                  height: 34,
                 ),
               ),
               const SizedBox(width: 16),
@@ -176,7 +176,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
     return Row(
       children: [
         ...List.generate(
-          9,
+          5,
           (index) => Padding(
             padding: const EdgeInsets.only(left: 4),
             child: Container(
@@ -191,7 +191,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
         ),
         const SizedBox(width: 12),
         Image.asset(
-          'lib/assets/Images/journal_right.png',
+          'lib/assets/Images/mindicons/vcvcv.png',
           width: 24,
           height: 24,
         ),
@@ -203,7 +203,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
     return _buildTrackerCard(
       title: 'Stress Level',
       value: 'Level 3 (Normal)',
-      leftImagePath: 'lib/assets/Images/stress_left.png',
+      leftImagePath: 'lib/assets/Images/mindicons/davidjjv.png',
       rightImagePath: 'lib/assets/Images/stress_right.png',
       color: Colors.yellow.shade50,
       onTap: onTap,
@@ -228,12 +228,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               ],
             ),
           ),
-          const SizedBox(width: 12),
-          Image.asset(
-            'lib/assets/Images/stress_right.png',
-            width: 24,
-            height: 24,
-          ),
+          
         ],
       ),
     );
@@ -243,7 +238,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
     return _buildTrackerCard(
       title: 'Mood Tracker',
       value: '',
-      leftImagePath: 'lib/assets/Images/mood_left.png',
+      leftImagePath: 'lib/assets/Images/mindicons/nem.png',
       rightImagePath: 'lib/assets/Images/mood_right.png',
       color: Colors.grey.shade50,
       onTap: onTap,
@@ -253,13 +248,9 @@ class _MindFullTrackerState extends State<MindFullTracker> {
           Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 16),
           Text('NEUTRAL', style: TextStyle(color: Colors.grey.shade500)),
           Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 16),
-          Text('HAPPY', style: TextStyle(color: Colors.green)),
+          const Text('HAPPY', style: TextStyle(color: Colors.green)),
           const SizedBox(width: 12),
-          Image.asset(
-            'lib/assets/Images/mood_right.png',
-            width: 24,
-            height: 24,
-          ),
+         
         ],
       ),
     );

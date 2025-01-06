@@ -34,6 +34,7 @@ flutter:
 
   assets:  
     - lib/assets/Images/ 
+    - lib/assets/Images/mindicons/
      
 flutter_native_splash:  
   color: "#ffffff"  
