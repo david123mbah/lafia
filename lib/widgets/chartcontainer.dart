@@ -6,38 +6,20 @@ class Chartcontainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: const Color(0xFF5D4037), // Brown background
         borderRadius: BorderRadius.circular(24),
         image: const DecorationImage(
-          image: AssetImage('lib/assets/Images/robot_pattern.png'),
-          fit: BoxFit.cover,
+          image: AssetImage('lib/assets/Images/mindicons/robot.png'),
+          fit: BoxFit.contain,
           opacity: 0.2,
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'AI Therapy Chatbot',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              Image.asset(
-                'lib/assets/Images/settings_icon.png',
-                width: 24,
-                height: 24,
-                color: Colors.white,
-              ),
-            ],
-          ),
+        
           const SizedBox(height: 40),
           Row(
             children: [
@@ -51,7 +33,7 @@ class Chartcontainer extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Image.asset(
-                'lib/assets/Images/message_icon.png',
+                'lib/assets/Images/mindicons/message.png',
                 width: 48,
                 height: 48,
                 color: Colors.white,
@@ -70,7 +52,7 @@ class Chartcontainer extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'lib/assets/Images/chat_bubble.png',
+                'lib/assets/Images/mindicons/Vectorbb.png',
                 width: 24,
                 height: 24,
                 color: Colors.white70,
@@ -89,7 +71,7 @@ class Chartcontainer extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'lib/assets/Images/star_icon.png',
+                'lib/assets/Images/Solid starf.png',
                 width: 24,
                 height: 24,
                 color: Colors.white70,
@@ -104,59 +86,10 @@ class Chartcontainer extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildFloatingButton(
-                color: const Color(0xFF8BC34A), // Light green
-                icon: Icons.add,
-                onTap: () {
-                  // Add new conversation logic
-                },
-              ),
-              const SizedBox(width: 16),
-              _buildFloatingButton(
-                color: const Color(0xFFFF5722), // Deep orange
-                icon: Icons.settings,
-                onTap: () {
-                  // Open settings logic
-                },
-              ),
-            ],
-          ),
+        
         ],
       ),
     );
   }
 
-  Widget _buildFloatingButton({
-    required Color color,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 64,
-        height: 64,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: color.withOpacity(0.3),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 32,
-        ),
-      ),
-    );
-  }
 }

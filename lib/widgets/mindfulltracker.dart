@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/utils/colors.dart';
+import 'package:lafia/widgets/chartcontainer.dart';
 
 class MindFullTracker extends StatefulWidget {
   const MindFullTracker({super.key});
@@ -13,10 +15,10 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Mindful Tracker',
                 style: TextStyle(
                   fontSize: 24,
@@ -26,20 +28,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    'SEP',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    '11',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Image.asset("lib/assets/Images/mindicons/Solid more vertical.png")
                 ],
               ),
             ],
@@ -86,6 +75,28 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               // Add navigation logic
             },
           ),
+          SizedBox(height: 15,),
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'AI Therapy Chatbot',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.brown400,
+                ),
+              ),
+              Image.asset(
+                'lib/assets/Images/mindicons/Solid gear.png',
+                width: 24,
+                height: 24,
+                color: AppColors.brown200,
+              ),
+            ],
+          ),
+          SizedBox(height: 15,),
+          const Chartcontainer (),
         ],
       ),
     );

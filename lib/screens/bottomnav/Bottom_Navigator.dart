@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/pages/AIchartboard/chartscreen.dart';
+import 'package:lafia/pages/Profilepage.dart/profilepage.dart';
 import 'package:provider/provider.dart';
 import 'package:lafia/Controller/main_screen.provider.dart';
 import 'package:lafia/pages/home/homepage.dart';
@@ -23,9 +25,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     // List of pages corresponding to each navigation item
     List<Widget> pageList = const [
       HomeScreen(),
+      ChartScreen(),
       HomeScreen(),
-      HomeScreen(),
-      HomeScreen(),
+      ProfilePage(),
     ];
 
     return Consumer<MainScreenNotifer>(
