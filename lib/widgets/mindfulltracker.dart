@@ -39,7 +39,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
             value: '2.5h/8h',
             leftImagePath: 'lib/assets/Images/Icon Container.png',
             rightImagePath: 'lib/assets/Images/Framehhjj.png',
-            color: Colors.green.shade50,
             onTap: () {
               // Add navigation logic
             },
@@ -49,7 +48,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
             value: 'Insomniac (~2h Avg)',
             leftImagePath: 'lib/assets/Images/mindicons/sleep.png',
             rightImagePath: 'lib/assets/Images/mindicons/sleeptime.png',
-            color: Colors.purple.shade50,
             onTap: () {
               // Add navigation logic
             },
@@ -59,7 +57,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
             value: '64 Day Streak',
             leftImagePath: 'lib/assets/Images/mindicons/dbbbc.png',
             rightImagePath: 'lib/assets/Images/mindicons/vcvcv.png',
-            color: Colors.orange.shade50,
             trailing: _buildStreakDots(),
             onTap: () {
               // Add navigation logic
@@ -107,7 +104,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
     required String value,
     required String leftImagePath,
     required String rightImagePath,
-    required Color color,
     required VoidCallback onTap,
     Widget? trailing,
   }) {
@@ -134,13 +130,13 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color,
                   shape: BoxShape.circle,
                 ),
                 child: Image.asset(
                   leftImagePath,
-                  width: 34,
-                  height: 34,
+                  width: 44,
+                  height: 44,
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 16),
@@ -172,8 +168,8 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                   padding: const EdgeInsets.all(12),
                   child: Image.asset(
                     rightImagePath,
-                    width: 24,
-                    height: 24,
+                    width: 44,
+                    height: 44,
                   ),
                 ),
             ],
@@ -216,7 +212,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       value: 'Level 3 (Normal)',
       leftImagePath: 'lib/assets/Images/mindicons/davidjjv.png',
       rightImagePath: 'lib/assets/Images/stress_right.png',
-      color: Colors.yellow.shade50,
       onTap: onTap,
       trailing: Row(
         children: [
@@ -251,7 +246,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       value: '',
       leftImagePath: 'lib/assets/Images/mindicons/nem.png',
       rightImagePath: 'lib/assets/Images/mood_right.png',
-      color: Colors.grey.shade50,
       onTap: onTap,
       trailing: Row(
         children: [

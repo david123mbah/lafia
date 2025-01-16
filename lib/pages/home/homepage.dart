@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               floating: false,
               pinned: true,
               elevation: 0,
+              
               backgroundColor: Colors.white,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -247,10 +248,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const SliverToBoxAdapter(
               child: SizedBox(height: 10),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: HealthMatrix(), // Add your HealthMatrix widget here
             ),
-             SliverToBoxAdapter(
+             const SliverToBoxAdapter(
               child:  MindFullTracker(), // Add your HealthMatrix widget here
             ),
           ],

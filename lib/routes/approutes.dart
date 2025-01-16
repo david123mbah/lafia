@@ -12,7 +12,7 @@ class TRoutes {
 
   // Onbording Routes application routes
   static const String HomeScreen = '/homeScreen';
-  static const String SecondOnboard = '/media';
+  static const String BottomNav = '/bottomnav';
 
   // Banner management
   static const String banners = '/banners';

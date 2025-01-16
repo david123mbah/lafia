@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lafia/pages/Welcome&%20Onboarding_Screen/getstarted_screen.dart';
 import 'package:lafia/pages/home/homepage.dart';
+import 'package:lafia/routes/approutes.dart';
 import 'package:lafia/screens/bottomnav/Bottom_Navigator.dart';
 import 'package:lafia/utils/apptext.dart';
 import 'package:lafia/utils/colors.dart';
@@ -128,11 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     CustomButton(
                       text: "Sign-In",
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNavigator()),
-                        );
+                        Get.toNamed(TRoutes.BottomNav);
                       },
                     ),
                     const SizedBox(height: 20),

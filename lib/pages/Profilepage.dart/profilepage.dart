@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:lafia/routes/approutes.dart';
 import 'package:lafia/utils/apptext.dart';
 import 'package:lafia/utils/colors.dart';
 
@@ -111,7 +114,9 @@ class _ProfilePageState extends State<ProfilePage> {
             width: 44,
             height: 44,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Get.toNamed(TRoutes.HomeScreen);
+          },
         ),
         title: const Text(
           'Settings',
