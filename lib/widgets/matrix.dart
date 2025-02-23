@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/screens/Mental-heath-score/mentalscore.dart';
+import 'package:lafia/screens/Mental-heath-score/moodstatistics.dart';
 import 'package:lafia/widgets/custom_progress.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HealthMatrix extends StatefulWidget {
   const HealthMatrix({super.key});
@@ -53,11 +56,23 @@ class _HealthMatrixState extends State<HealthMatrix> {
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               children: [
-                _buildFreudScoreCard(cardWidth, cardHeight),
+                _buildFreudScoreCard(cardWidth, cardHeight)
+                    .animate()
+                    .fadeIn(duration: 500.ms)
+                    .slideX()
+                    .shimmer(duration: 1200.ms),
                 const SizedBox(width: 16),
-                _buildMoodCard(cardWidth, cardHeight),
+                _buildMoodCard(cardWidth, cardHeight)
+                    .animate()
+                    .fadeIn(duration: 500.ms)
+                    .slideX()
+                    .shimmer(duration: 1200.ms),
                 const SizedBox(width: 16),
-                _buildHealthJournalCard(cardWidth, cardHeight),
+                _buildHealthJournalCard(cardWidth, cardHeight)
+                    .animate()
+                    .fadeIn(duration: 500.ms)
+                    .slideX()
+                    .shimmer(duration: 1200.ms),
               ],
             ),
           ),
@@ -75,6 +90,12 @@ class _HealthMatrixState extends State<HealthMatrix> {
     return InkWell(
       onTap: () {
         // Handle tap
+        Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MentalHealthScore()),
+                    );
+
       },
       child: Container(
         width: width,
@@ -141,6 +162,11 @@ class _HealthMatrixState extends State<HealthMatrix> {
     return InkWell(
       onTap: () {
         // Handle tap
+        Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MoodStatiscies()),
+                    );
       },
       child: Container(
         width: width,

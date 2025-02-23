@@ -15,7 +15,7 @@ class TRoutes {
   static const String BottomNav = '/bottomnav';
 
   // Banner management
-  static const String banners = '/banners';
+  static const String chatbot = '/Aichat';
   static const String createBanner = '/createBanner';
   static const String editBanner = '/editBanner';
 

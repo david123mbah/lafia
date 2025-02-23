@@ -14,9 +14,9 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   // List of icon paths for navigation icons
   final List<String> iconPaths = [
-    "lib/assets/Images/10  home.png",
+    "lib/assets/Images/mindicons/Homew.png",
     "lib/assets/Images/20  chat.png",
-    "lib/assets/Images/18  chart.png",
+    "lib/assets/Images/mindicons/Calendar.png",
     "lib/assets/Images/13  user.png",
   ];
 
@@ -84,11 +84,11 @@ class CustomBottomNavBar extends StatelessWidget {
   final List<String> iconPaths;
 
   const CustomBottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onTap,
     required this.iconPaths,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +168,11 @@ class NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const NavItem({
-    Key? key,
+    super.key,
     required this.iconPath,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

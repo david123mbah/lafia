@@ -17,7 +17,7 @@ class MyTextfield extends StatelessWidget {
     required this.obscureText,
     this.prefixIcon,
     this.suffixIcon,
-    this.onSuffixIconTap,
+    this.onSuffixIconTap, String? errorText,
   });
 
   @override

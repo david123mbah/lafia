@@ -1,8 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lafia/pages/AIchartboard/conversation.dart';
 import 'package:lafia/utils/apptext.dart';
+
+
+import '../../routes/approutes.dart';
 
 class ChartScreen extends StatelessWidget {
   const ChartScreen({super.key});
+
+  // Method to navigate to the ConversationsScreen
+  void navigateToConversationsScreen(BuildContext context) {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ConversationsScreen(userId: currentUser.uid),
+        ),
+      );
+    } else {
+      // Handle the case where the user is not logged in
+      print('User is not logged in.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You must be logged in to access the chat.'),
+        ),
+      );
+      // Optionally, redirect to the login screen
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +50,9 @@ class ChartScreen extends StatelessWidget {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title:  const Text(
+        title: const Text(
           'Mindful AI Chatbot',
-          style: TextStyles.heading2xlSemiBold
+          style: TextStyles.heading2xlSemiBold,
         ),
       ),
       body: Column(
@@ -60,7 +91,8 @@ class ChartScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: ElevatedButton(
               onPressed: () {
-
+                // Replace Get.toNamed with navigateToConversationsScreen
+                navigateToConversationsScreen(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFF7F57),

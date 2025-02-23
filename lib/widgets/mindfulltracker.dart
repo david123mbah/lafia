@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/screens/Mental-heath-score/mentalhealthchat.dart';
+import 'package:lafia/screens/Mental-heath-score/moodscore.dart';
 import 'package:lafia/utils/colors.dart';
 import 'package:lafia/widgets/chartcontainer.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class MindFullTracker extends StatefulWidget {
   const MindFullTracker({super.key});
@@ -15,7 +18,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-           Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
@@ -28,21 +31,29 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.asset("lib/assets/Images/mindicons/Solid more vertical.png")
+                  Image.asset(
+                      "lib/assets/Images/mindicons/Solid more vertical.png")
                 ],
               ),
             ],
           ),
           const SizedBox(height: 20),
           _buildTrackerCard(
-            title: 'Mindful Hours',
+            title: 'Mindful Hours(Meditation)',
             value: '2.5h/8h',
             leftImagePath: 'lib/assets/Images/Icon Container.png',
             rightImagePath: 'lib/assets/Images/Framehhjj.png',
             onTap: () {
               // Add navigation logic
+              // Handle tap
+              // Handle tap
+              // Handle tap
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MindFullHours()),
+              );
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms, delay: 100.ms),
           _buildTrackerCard(
             title: 'Sleep Quality',
             value: 'Insomniac (~2h Avg)',
@@ -51,7 +62,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
             onTap: () {
               // Add navigation logic
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms, delay: 200.ms),
           _buildTrackerCard(
             title: 'Mindful Journal',
             value: '64 Day Streak',
@@ -61,19 +72,21 @@ class _MindFullTrackerState extends State<MindFullTracker> {
             onTap: () {
               // Add navigation logic
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms, delay: 300.ms),
           _buildStressLevelCard(
             onTap: () {
               // Add navigation logic
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms, delay: 400.ms),
           _buildMoodTrackerCard(
             onTap: () {
               // Add navigation logic
             },
+          ).animate().fadeIn(duration: 500.ms, delay: 500.ms),
+          const SizedBox(
+            height: 15,
           ),
-          SizedBox(height: 15,),
-            Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
@@ -81,19 +94,21 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                 style: TextStyle(
                   fontSize: 23,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.brown400,
+                  color: AppColors.brown200,
                 ),
               ),
               Image.asset(
                 'lib/assets/Images/mindicons/Solid gear.png',
                 width: 24,
                 height: 24,
-                color: AppColors.brown200,
+                color: AppColors.brown300,
               ),
             ],
           ),
-          SizedBox(height: 15,),
-          const Chartcontainer (),
+          SizedBox(
+            height: 15,
+          ),
+          const Chartcontainer(),
         ],
       ),
     );
@@ -113,6 +128,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Container(
+          height: MediaQuery.of(context).size.height * 0.1,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -134,8 +150,8 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                 ),
                 child: Image.asset(
                   leftImagePath,
-                  width: 44,
-                  height: 44,
+                  width: 40,
+                  height: 40,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -147,7 +163,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -161,15 +177,15 @@ class _MindFullTrackerState extends State<MindFullTracker> {
                   ],
                 ),
               ),
-              if (trailing != null) 
+              if (trailing != null)
                 trailing
               else
                 Container(
                   padding: const EdgeInsets.all(12),
                   child: Image.asset(
                     rightImagePath,
-                    width: 44,
-                    height: 44,
+                    width: 40,
+                    height: 40,
                   ),
                 ),
             ],
@@ -234,7 +250,6 @@ class _MindFullTrackerState extends State<MindFullTracker> {
               ],
             ),
           ),
-          
         ],
       ),
     );
@@ -246,16 +261,22 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       value: '',
       leftImagePath: 'lib/assets/Images/mindicons/nem.png',
       rightImagePath: 'lib/assets/Images/mood_right.png',
-      onTap: onTap,
+      onTap: () {
+        // Handle tap
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MentalHealth(),
+          ),
+        );
+      },
       trailing: Row(
         children: [
           Text('SAD', style: TextStyle(color: Colors.grey.shade500)),
-          Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 16),
+          Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 12),
           Text('NEUTRAL', style: TextStyle(color: Colors.grey.shade500)),
-          Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 16),
+          Icon(Icons.arrow_forward, color: Colors.grey.shade400, size: 12),
           const Text('HAPPY', style: TextStyle(color: Colors.green)),
-          const SizedBox(width: 12),
-         
         ],
       ),
     );

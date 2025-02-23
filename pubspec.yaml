@@ -1,47 +1,79 @@
-name: lafia  
-description: "A new Flutter project."  
+name: lafia
+description: "A new Flutter project."
 
-# Prevents the package from being published to pub.dev  
-publish_to: 'none'  
+# Prevents the package from being published to pub.dev
+publish_to: 'none'
 
-# Versioning details  
-version: 1.0.0+1  
+# Versioning details
+version: 1.0.0+1
 
-environment:  
-  sdk: ^3.5.3  
+environment:
+  sdk: ^3.5.3
 
-# Dependencies needed for the project  
-dependencies:  
-  flutter:  
-    sdk: flutter  
-  cupertino_icons: ^1.0.8  
-  provider: ^6.1.2  
-  get: ^4.6.6  
+# Dependencies needed for the project
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  get: ^4.6.6
   flutter_native_splash: ^2.4.3
   circular_bottom_navigation: ^2.4.0
   flutter_charts: ^0.5.2
   percent_indicator: ^4.2.4
+  flutter_animate: ^4.5.2
+  smooth_page_indicator: ^1.2.0+3
+  table_calendar: ^3.1.0 # Downgrade to a compatible version
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.1
+  google_sign_in: ^6.2.2
+  dash_chat_2: ^0.0.20 # Downgrade to a compatible version
+  chat_gpt_sdk: ^3.1.4
+  cloud_firestore: ^5.6.2
+  intl: ^0.19.0
+  flutter_launcher_icons: ^0.14.3
 
-# Development dependencies  
-dev_dependencies:  
-  flutter_test:  
-    sdk: flutter  
-  flutter_lints: ^4.0.0  
+# Development dependencies
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+ 
 
-# Flutter configuration  
-flutter:  
-  uses-material-design: true  
+# Flutter configuration
+flutter:
+  uses-material-design: true
 
-  assets:  
-    - lib/assets/Images/ 
+  assets:
+    - lib/assets/Images/
     - lib/assets/Images/mindicons/
     - lib/assets/Images/profileIcons/
-     
-flutter_native_splash:  
-  color: "#ffffff"  
-  image: lib/assets/Images/Logo Vertical.png  
-  branding: lib/assets/Images/Logo Vertical.png  
-  branding_bottom_padding: 24  
-  color_dark: "#F7F4F2"  # Proper hex color format with '#'  
-  image_dark: lib/assets/Images/Logo Vertical.png  
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: lib/assets/Images/Logo Vertical.png
+  branding: lib/assets/Images/Logo Vertical.png
+  branding_bottom_padding: 24
+  color_dark: "#F7F4F2"
+  image_dark: lib/assets/Images/Logo Vertical.png
   branding_dark: lib/assets/Images/Logo Vertical.png
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "lib/assets/Images/Icon Container Base.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "lib/assets/Images/Icon Container Base.png"
+    background_color: "#FFFFFF" # Replace with your desired background color
+    theme_color: "#FFFFFF" # Replace with your desired theme color
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
