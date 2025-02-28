@@ -115,146 +115,156 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 246, 241),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: 
+         SafeArea(
           child: Column(
             children: [
               SizedBox(
-                height: 100,
+                height: 200,
                 child: Stack(
                   children: [
                     CustomPaint(
                       size: Size(MediaQuery.of(context).size.width, 400),
                       painter: CurvedPainter(),
                     ).animate().fadeIn(duration: 800.ms),
-                   
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Text(
-                      'Sign In to lafia.ai',
-                      style: TextStyles.heading2xlBold.copyWith(
-                        fontSize: 28,
-                        color: AppColors.brown300,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ).animate().fadeIn(delay: 500.ms, duration: 800.ms),
-                    const SizedBox(height: 40),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          " Email Address ",
-                          style: TextStyle(
-                            color: AppColors.brown100,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ).animate().fadeIn(delay: 700.ms, duration: 800.ms),
-                        MyTextfield(
-                          controller: _emailController,
-                          hintText: "Email",
-                          obscureText: false,
-                          prefixIcon: Icons.email,
-                          errorText: _emailError ? 'Invalid email' : null,
-                        ).animate().fadeIn(delay: 800.ms, duration: 800.ms),
-                        const SizedBox(height: 30),
-                        const Text(
-                          " Password ",
-                          style: TextStyle(
-                            color: AppColors.brown100,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ).animate().fadeIn(delay: 900.ms, duration: 800.ms),
-                        MyTextfield(
-                          controller: _passwordController,
-                          hintText: "Password",
-                          obscureText: true,
-                          prefixIcon: Icons.lock,
-                          suffixIcon: Icons.visibility,
-                          errorText: _passwordError ? 'Invalid password' : null,
-                        ).animate().fadeIn(delay: 1000.ms, duration: 800.ms),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    if (_isLoading)
-                      const CircularProgressIndicator()
-                    else
-                      CustomButton(
-                        text: "Sign-In",
-                        onTap: _signInWithEmail,
-                      ).animate().fadeIn(delay: 1100.ms, duration: 800.ms),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: _signInWithGoogle,
-                          child: Image.asset(
-                            'lib/assets/Images/Framehh.png',
-                            height: 55,
-                            width: 55,
-                          ).animate().fadeIn(delay: 1200.ms, duration: 800.ms),
-                        ),
-                        const SizedBox(width: 40),
-                        GestureDetector(
-                          onTap: () {
-                            // Handle Facebook login
-                          },
-                          child: Image.asset(
-                            'lib/assets/Images/Framell.png',
-                            height: 55,
-                            width: 55,
-                          ).animate().fadeIn(delay: 1300.ms, duration: 800.ms),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    if (_message.isNotEmpty)
+                
+                  
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // Added mainAxisSize
+                    children: [
+                      const SizedBox(height: 20),
                       Text(
-                        _message,
-                        style: const TextStyle(color: Colors.red),
-                      ).animate().fadeIn(delay: 1400.ms, duration: 800.ms),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        'Sign In to lafia.ai',
+                        style: TextStyles.heading2xlBold.copyWith(
+                          fontSize: 28,
+                          color: AppColors.brown300,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ).animate().fadeIn(delay: 500.ms, duration: 800.ms),
+                      const SizedBox(height: 40),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Don't have an Account? ",
+                            " Email Address ",
                             style: TextStyle(
-                              color: AppColors.brown400,
+                              color: AppColors.brown100,
+                              fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
-                          ).animate().fadeIn(delay: 1400.ms, duration: 800.ms),
+                          ).animate().fadeIn(delay: 700.ms, duration: 800.ms),
+                          MyTextfield(
+                            controller: _emailController,
+                            hintText: "Email",
+                            obscureText: false,
+                            prefixIcon: Icons.email,
+                            errorText: _emailError ? 'Invalid email' : null,
+                          ).animate().fadeIn(delay: 800.ms, duration: 800.ms),
+                          const SizedBox(height: 30),
+                          const Text(
+                            " Password ",
+                            style: TextStyle(
+                              color: AppColors.brown100,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ).animate().fadeIn(delay: 900.ms, duration: 800.ms),
+                          MyTextfield(
+                            controller: _passwordController,
+                            hintText: "Password",
+                            obscureText: true,
+                            prefixIcon: Icons.lock,
+                            suffixIcon: Icons.visibility,
+                            errorText:
+                                _passwordError ? 'Invalid password' : null,
+                          ).animate().fadeIn(delay: 1000.ms, duration: 800.ms),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      if (_isLoading)
+                        const CircularProgressIndicator()
+                      else
+                        CustomButton(
+                          text: "Sign-In",
+                          onTap: _signInWithEmail,
+                        ).animate().fadeIn(delay: 1100.ms, duration: 800.ms),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           GestureDetector(
-                            onTap: widget.onTap,
-                            child: const Text(
-                              "Sign In",
+                            onTap: _signInWithGoogle,
+                            child: Image.asset(
+                              'lib/assets/Images/Framehh.png',
+                              height: 55,
+                              width: 55,
+                            )
+                                .animate()
+                                .fadeIn(delay: 1200.ms, duration: 800.ms),
+                          ),
+                          const SizedBox(width: 40),
+                          GestureDetector(
+                            onTap: () {
+                              // Handle Facebook login
+                            },
+                            child: Image.asset(
+                              'lib/assets/Images/Framell.png',
+                              height: 55,
+                              width: 55,
+                            )
+                                .animate()
+                                .fadeIn(delay: 1300.ms, duration: 800.ms),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      if (_message.isNotEmpty)
+                        Text(
+                          _message,
+                          style: const TextStyle(color: Colors.red),
+                        ).animate().fadeIn(delay: 1400.ms, duration: 800.ms),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Don't have an Account? ",
                               style: TextStyle(
-                                color: AppColors.brown200,
+                                color: AppColors.brown400,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
                                 .animate()
-                                .fadeIn(delay: 1500.ms, duration: 800.ms),
-                          ),
-                        ],
+                                .fadeIn(delay: 1400.ms, duration: 800.ms),
+                            GestureDetector(
+                              onTap: widget.onTap,
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                  color: AppColors.brown200,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                                  .animate()
+                                  .fadeIn(delay: 1500.ms, duration: 800.ms),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                
               ),
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

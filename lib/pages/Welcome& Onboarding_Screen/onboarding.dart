@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lafia/screens/auth/login_or_register.dart';
 import 'package:lafia/utils/colors.dart';
+import 'package:lafia/widgets/custom_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -44,12 +45,11 @@ class _OnboardingState extends State<Onboarding> {
       );
     } else {
       // Navigate to next screen
-       // Handle navigation here
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginOrRegister()),
-                    );
+      // Handle navigation here
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginOrRegister()),
+      );
     }
   }
 
@@ -140,7 +140,10 @@ class _OnboardingState extends State<Onboarding> {
                 FloatingActionButton(
                   onPressed: _nextPage,
                   backgroundColor: AppColors.brown400,
-                  child: const Icon(Icons.arrow_forward, color: Colors.white ,),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -155,7 +158,7 @@ class WavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color =  Color(0xFFF7F6F1)
+      ..color = const Color(0xFFF7F6F1)
       ..style = PaintingStyle.fill;
 
     final path = Path()

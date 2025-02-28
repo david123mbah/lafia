@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/pages/AIchartboard/chartpage.dart';
 import 'package:lafia/pages/AIchartboard/chartscreen.dart';
+import 'package:lafia/pages/Doctors/doctordetailpage.dart';
+
+import 'package:lafia/pages/Doctors/doctorview.dart';
 import 'package:lafia/pages/Profilepage.dart/profilepage.dart';
+import 'package:lafia/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:lafia/Controller/main_screen.provider.dart';
 import 'package:lafia/pages/home/homepage.dart';
@@ -14,26 +19,26 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   // List of icon paths for navigation icons
   final List<String> iconPaths = [
-    "lib/assets/Images/mindicons/Homew.png",
+    "lib/assets/Images/10  home.png",
     "lib/assets/Images/20  chat.png",
-    "lib/assets/Images/mindicons/Calendar.png",
+    "lib/assets/Images/18  chart.png",
     "lib/assets/Images/13  user.png",
   ];
 
   @override
   Widget build(BuildContext context) {
     // List of pages corresponding to each navigation item
-    List<Widget> pageList = const [
-      HomeScreen(),
-      ChartScreen(),
-      HomeScreen(),
-      ProfilePage(),
+    List<Widget> pageList = [
+      const HomeScreen(),
+      const ChartPage(),
+      const ChatDoctor(),
+      const ProfilePage(),
     ];
 
     return Consumer<MainScreenNotifer>(
       builder: (context, mainScreenNotifier, child) {
         return Scaffold(
-          backgroundColor: const Color(0xFFEAE7E1),
+          backgroundColor:  Colors.white,
           // Display the current page based on the index
           body: pageList[mainScreenNotifier.pageIndex],
           // Floating action button centered in the bottom navigation bar
@@ -188,7 +193,7 @@ class NavItem extends StatelessWidget {
           iconPath,
           width: 48,
           height: 48,
-          color: isActive ? const Color(0xFF8AAE76) : const Color(0xFFADADAD),
+          color: isActive ?  AppColors.brown400 : const Color(0xFFADADAD),
         ),
       ),
     );

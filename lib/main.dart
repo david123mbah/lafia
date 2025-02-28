@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lafia/Controller/main_screen.provider.dart';
+import 'package:lafia/pages/Doctors/doctorview.dart';
 import 'package:lafia/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart'; // Add this import
@@ -10,6 +11,7 @@ void main() async {
   await Firebase.initializeApp(); // Initialize Firebase
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => MainScreenNotifer()),
+    ChangeNotifierProvider(create: (context) => DoctorProvider())
   ], child: const MyApp()));
 }
 

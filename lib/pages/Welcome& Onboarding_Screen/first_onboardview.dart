@@ -149,6 +149,43 @@ class _PageHeader extends StatelessWidget {
   }
 }
 
+class _TimelineIndicator extends StatelessWidget {
+  final int currentStep;
+  final int totalSteps;
+
+  const _TimelineIndicator({
+    required this.currentStep,
+    required this.totalSteps,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: List.generate(totalSteps, (index) {
+          bool isCompleted = index < currentStep - 1;
+          bool isCurrent = index == currentStep - 1;
+
+          return Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 4,
+              decoration: BoxDecoration(
+                color: isCompleted || isCurrent
+                    ? const Color(0xFF7D944D)
+                    : Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          );
+        }),
+      ),
+    ).animate().fadeIn();
+  }
+}
+
 class _ContinueButton extends StatelessWidget {
   final VoidCallback onTap;
 
@@ -161,7 +198,7 @@ class _ContinueButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4A332D),
+          backgroundColor: const Color(0xFF7D944D),
           minimumSize: const Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -193,24 +230,28 @@ class _OptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 18),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10),
-          border: bordered ? Border.all(color: Colors.black) : null,
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          elevation: bordered ? 0 : 2,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: bordered
+                ? BorderSide(color: const Color(0xFF7D944D), width: 2)
+                : BorderSide.none,
+          ),
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -228,37 +269,43 @@ class _ProfessionalHelpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '1', totalPages: '7'),
+        const _PageHeader(currentPage: '1', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 1, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'lib/assets/Images/mindicons/Group.png',
-                    height: 400,
-                  ).animate().fadeIn().scale(),
-                  const SizedBox(height: 24),
+                  Center(
+                    child: Image.asset(
+                      'lib/assets/Images/mindicons/Group.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ).animate().fadeIn().scale(),
+                  ),
+                  const SizedBox(height: 40),
                   const Text(
                     'Have you sought professional help before?',
                     style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      height: 1.3,
                     ),
                   ).animate().fadeIn(delay: 200.ms).slideX(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 40),
                   _OptionButton(
                     text: 'Yes',
                     onTap: () => onContinue(true),
-                    color: const Color(0xFF9BB98B),
+                    color: const Color(0xFF7D944D),
                   ).animate().fadeIn(delay: 300.ms),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   _OptionButton(
                     text: 'No',
                     onTap: () => onContinue(false),
-                    color: const Color(0xFF9BB98B),
+                    color: Colors.white,
+                    textColor: const Color(0xFF7D944D),
+                    bordered: true,
                   ).animate().fadeIn(delay: 400.ms),
                 ],
               ),
@@ -270,52 +317,142 @@ class _ProfessionalHelpPage extends StatelessWidget {
   }
 }
 
-class _PhysicalDistressPage extends StatelessWidget {
-  final Function(PhysicalDistress) onContinue;
+// Add this new widget for the timeline slider
+class _TimelineSlider extends StatelessWidget {
+  final List<String> labels;
+  final int selectedIndex;
+  final Function(int) onChanged;
+  final Color activeColor;
+  final Color inactiveColor;
 
-  const _PhysicalDistressPage({required this.onContinue});
+  const _TimelineSlider({
+    required this.labels,
+    required this.selectedIndex,
+    required this.onChanged,
+    this.activeColor = const Color(0xFF7D944D),
+    this.inactiveColor = const Color(0xFFE0E0E0),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '2', totalPages: '7'),
+        Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Stack(
+            children: [
+              // Timeline line
+              Positioned(
+                top: 25,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 4,
+                  color: inactiveColor,
+                ),
+              ),
+              // Timeline points
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  labels.length,
+                  (index) => GestureDetector(
+                    onTap: () => onChanged(index),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: index <= selectedIndex
+                                ? activeColor
+                                : inactiveColor,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          labels[index],
+                          style: TextStyle(
+                            color: index <= selectedIndex
+                                ? activeColor
+                                : Colors.grey,
+                            fontSize: 12,
+                            fontWeight: index == selectedIndex
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(delay: (100 * index).ms),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Update the _PhysicalDistressPage
+class _PhysicalDistressPage extends StatefulWidget {
+  final Function(PhysicalDistress) onContinue;
+
+  const _PhysicalDistressPage({required this.onContinue});
+
+  @override
+  State<_PhysicalDistressPage> createState() => _PhysicalDistressPageState();
+}
+
+class _PhysicalDistressPageState extends State<_PhysicalDistressPage> {
+  int selectedIndex = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const _PageHeader(currentPage: '2', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 2, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Are you experiencing any physical symptoms of distress?',
                     style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      height: 1.3,
                     ),
                   ).animate().fadeIn().slideX(),
-                  const SizedBox(height: 34),
-                  _OptionButton(
-                    text: 'Yes, Very Painful',
-                    onTap: () => onContinue(PhysicalDistress.veryPainful),
-                    color: Colors.white,
-                    textColor: Colors.black,
-                    bordered: true,
-                  ).animate().fadeIn(delay: 100.ms),
-                  const SizedBox(height: 12),
-                  _OptionButton(
-                    text: 'No Physical Pain At All',
-                    onTap: () => onContinue(PhysicalDistress.noPain),
-                    color: const Color(0xFF9BB98B),
-                  ).animate().fadeIn(delay: 200.ms),
-                  const SizedBox(height: 12),
-                  _OptionButton(
-                    text: 'Yes, But just a bit',
-                    onTap: () => onContinue(PhysicalDistress.slightPain),
-                    color: Colors.white,
-                    textColor: Colors.black,
-                    bordered: true,
-                  ).animate().fadeIn(delay: 300.ms),
+                  const SizedBox(height: 40),
+                  _TimelineSlider(
+                    labels: const ['Very Painful', 'Slight Pain', 'No Pain'],
+                    selectedIndex: selectedIndex,
+                    onChanged: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 40),
+                  _ContinueButton(
+                    onTap: () {
+                      final distress = [
+                        PhysicalDistress.veryPainful,
+                        PhysicalDistress.slightPain,
+                        PhysicalDistress.noPain,
+                      ][selectedIndex];
+                      widget.onContinue(distress);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -326,16 +463,25 @@ class _PhysicalDistressPage extends StatelessWidget {
   }
 }
 
-class _SleepQualityPage extends StatelessWidget {
+// Update the _SleepQualityPage
+class _SleepQualityPage extends StatefulWidget {
   final Function(SleepQuality) onContinue;
 
   const _SleepQualityPage({required this.onContinue});
 
   @override
+  State<_SleepQualityPage> createState() => _SleepQualityPageState();
+}
+
+class _SleepQualityPageState extends State<_SleepQualityPage> {
+  int selectedIndex = 2;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '3', totalPages: '7'),
+        const _PageHeader(currentPage: '3', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 3, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
@@ -350,55 +496,33 @@ class _SleepQualityPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ).animate().fadeIn().slideX(),
-                  const SizedBox(height: 24),
-                  _SleepQualitySlider(
-                    onChanged: (quality) => onContinue(quality),
-                  ).animate().fadeIn(delay: 200.ms),
+                  const SizedBox(height: 40),
+                  _TimelineSlider(
+                    labels: const [
+                      'Excellent',
+                      'Good',
+                      'Fair',
+                      'Poor',
+                      'Worst'
+                    ],
+                    selectedIndex: selectedIndex,
+                    onChanged: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 40),
+                  _ContinueButton(
+                    onTap: () {
+                      final quality = SleepQuality.values[selectedIndex];
+                      widget.onContinue(quality);
+                    },
+                  ),
                 ],
               ),
             ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SleepQualitySlider extends StatefulWidget {
-  final Function(SleepQuality) onChanged;
-
-  const _SleepQualitySlider({required this.onChanged});
-
-  @override
-  State<_SleepQualitySlider> createState() => _SleepQualitySliderState();
-}
-
-class _SleepQualitySliderState extends State<_SleepQualitySlider> {
-  double _currentValue = 2.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Slider(
-          value: _currentValue,
-          min: 0,
-          max: 4,
-          divisions: 4,
-          label: SleepQuality.values[_currentValue.toInt()]
-              .toString()
-              .split('.')
-              .last,
-          onChanged: (value) {
-            setState(() {
-              _currentValue = value;
-            });
-            widget.onChanged(SleepQuality.values[value.toInt()]);
-          },
-        ),
-        Text(
-          SleepQuality.values[_currentValue.toInt()].toString().split('.').last,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -421,7 +545,8 @@ class _MedicationsPageState extends State<_MedicationsPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '4', totalPages: '7'),
+        const _PageHeader(currentPage: '4', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 4, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
@@ -478,7 +603,8 @@ class _StressLevelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '5', totalPages: '7'),
+        const _PageHeader(currentPage: '5', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 5, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
@@ -619,7 +745,8 @@ class _ExpressionAnalysisPageState extends State<_ExpressionAnalysisPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _PageHeader(currentPage: '6', totalPages: '7'),
+        const _PageHeader(currentPage: '6', totalPages: '6'),
+        const _TimelineIndicator(currentStep: 6, totalSteps: 6),
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
@@ -655,7 +782,7 @@ class _ExpressionAnalysisPageState extends State<_ExpressionAnalysisPage> {
                   const SizedBox(height: 16),
                   const Row(
                     children: [
-                      Icon(Icons.mic, color: Color(0xFF9BB98B)),
+                      Icon(Icons.mic, color: Color(0xFF4A332D)),
                       SizedBox(width: 8),
                     ],
                   ).animate().fadeIn(delay: 400.ms),

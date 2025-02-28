@@ -87,7 +87,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Doctor Freud.AI',
+          'Doctor Freemind.AI',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -126,7 +126,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                     decoration: BoxDecoration(
                       color: isCurrentUser
                           ? Colors.blue
-                          : Color(0xFF94B07A),
+                          : const Color(0xFF94B07A),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
@@ -138,7 +138,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                             color: isCurrentUser ? Colors.white : Colors.black,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           '${message.createdAt.hour}:${message.createdAt.minute}',
                           style: TextStyle(

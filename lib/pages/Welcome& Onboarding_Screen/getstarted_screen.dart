@@ -3,6 +3,7 @@ import 'package:lafia/pages/Welcome&%20Onboarding_Screen/first_onboardview.dart'
 import 'package:lafia/pages/Welcome&%20Onboarding_Screen/onboarding.dart';
 import 'package:lafia/screens/auth/login_or_register.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:lafia/screens/bottomnav/Bottom_Navigator.dart';
 import 'package:lafia/utils/apptext.dart';
 import 'package:lafia/utils/colors.dart';
 import 'package:lafia/widgets/custom_button.dart';
@@ -54,11 +55,8 @@ class _GetstartedScreenState extends State<GetstartedScreen> with SingleTickerPr
                 const SizedBox(
                   height: 100,
                 ),
-                Image.asset(
-                    "lib/assets/Images/sscdc.png"), // Update with your asset path
-                const SizedBox(height: 20),
                 Text(
-                  'Welcome to the ultimate Lafia UI Kit!',
+                  'Welcome to  Freemid !',
                   style: TextStyles.heading2xlBold
                       .copyWith(color: AppColors.brown400),
                   textAlign: TextAlign.center,
@@ -71,7 +69,7 @@ class _GetstartedScreenState extends State<GetstartedScreen> with SingleTickerPr
                 ),
                 const SizedBox(height: 30),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
@@ -89,7 +87,7 @@ class _GetstartedScreenState extends State<GetstartedScreen> with SingleTickerPr
                           builder: (context) => const Onboarding()),
                     );
                   },
-                  text: 'Get Started',
+                  text: 'Get Started ',
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -106,13 +104,13 @@ class _GetstartedScreenState extends State<GetstartedScreen> with SingleTickerPr
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginOrRegister()),
+                          builder: (context) => const BottomNavigator()),
                     );
                       },
                       child: Text(
                         'Sign In.',
                         style: TextStyles.textMdBold
-                            .copyWith(color: AppColors.brown200),
+                            .copyWith(color: AppColors.orange200),
                       ),
                     ),
                   ],

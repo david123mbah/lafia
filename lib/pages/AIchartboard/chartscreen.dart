@@ -67,7 +67,7 @@ class ChartScreen extends StatelessWidget {
           const SizedBox(height: 24),
           // Title
           const Text(
-            'Talk to Doctor Lafia AI',
+            'Talk to Doctor Freemind AI',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

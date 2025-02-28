@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/screens/bottomnav/Bottom_Navigator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MentalHealth extends StatefulWidget {
@@ -7,13 +8,20 @@ class MentalHealth extends StatefulWidget {
   State<MentalHealth> createState() => _MentalHealthState();
 }
 
+enum Mood { superHappy, happy, neutral, sad, angry }
+
+class MoodData {
+  final Mood mood;
+  final String? note;
+
+  MoodData({required this.mood, this.note});
+}
+
 class _MentalHealthState extends State<MentalHealth> {
   final CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  Map<DateTime, MoodData> _moodEvents = {
-    
-  };
+  Map<DateTime, MoodData> _moodEvents = {};
 
   @override
   void initState() {
@@ -22,7 +30,8 @@ class _MentalHealthState extends State<MentalHealth> {
     // Initialize with sample data
     _moodEvents = {
       DateTime.now(): MoodData(mood: Mood.happy),
-      DateTime.now().subtract(const Duration(days: 1)): MoodData(mood: Mood.neutral),
+      DateTime.now().subtract(const Duration(days: 1)):
+          MoodData(mood: Mood.neutral),
     };
   }
 
@@ -42,7 +51,13 @@ class _MentalHealthState extends State<MentalHealth> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () {
+                       Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BottomNavigator()),
+                    ); 
+                      },
                       child: Container(
                         width: 40,
                         height: 40,
@@ -50,7 +65,8 @@ class _MentalHealthState extends State<MentalHealth> {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.grey.shade300),
                         ),
-                        child: const Icon(Icons.arrow_back, color: Colors.brown),
+                        child:
+                            const Icon(Icons.arrow_back, color: Colors.brown),
                       ),
                     ),
                     Container(
@@ -60,7 +76,8 @@ class _MentalHealthState extends State<MentalHealth> {
                         shape: BoxShape.circle,
                         color: Colors.brown,
                       ),
-                      child: const Icon(Icons.question_mark, color: Colors.white),
+                      child:
+                          const Icon(Icons.question_mark, color: Colors.white),
                     ),
                   ],
                 ),
@@ -68,7 +85,7 @@ class _MentalHealthState extends State<MentalHealth> {
 
                 // Title Section
                 const Text(
-                  'Freud Score',
+                  'Freemind Score',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -128,7 +145,7 @@ class _MentalHealthState extends State<MentalHealth> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      
+
                       // Calendar Widget
                       TableCalendar(
                         firstDay: DateTime.utc(2023, 1, 1),
@@ -162,7 +179,8 @@ class _MentalHealthState extends State<MentalHealth> {
                         calendarBuilders: CalendarBuilders(
                           markerBuilder: (context, date, events) {
                             if (_moodEvents.containsKey(date)) {
-                              return _buildMoodIndicator(_moodEvents[date]!.mood);
+                              return _buildMoodIndicator(
+                                  _moodEvents[date]!.mood);
                             }
                             return null;
                           },
@@ -171,7 +189,7 @@ class _MentalHealthState extends State<MentalHealth> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
 
                 // Mood History Card
                 Container(
@@ -211,31 +229,7 @@ class _MentalHealthState extends State<MentalHealth> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // AI Suggestions Button
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.brown,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.psychology, color: Colors.white),
-                      SizedBox(width: 8),
-                      Text(
-                        'Swipe for AI suggestions',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+               
               ],
             ),
           ),
@@ -269,8 +263,16 @@ class _MentalHealthState extends State<MentalHealth> {
 
   List<Widget> _buildWeekMoodHistory() {
     final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    final moods = ['😊', '😌', '😢', '😊', '😠', '😐', '😊'];
-    
+    final moods = [
+      'lib/assets/Images/emotions/Emotionhappy.png',
+      'lib/assets/Images/emotions/Emotionnuetral.png',
+      'lib/assets/Images/emotions/Emotionsadd.png',
+      'lib/assets/Images/emotions/Emotionhappy.png',
+      'lib/assets/Images/emotions/Emotionangry.png',
+      'lib/assets/Images/emotions/Emotionnuetral.png',
+      'lib/assets/Images/emotions/Emotionsuper happy.png'
+    ];
+
     return List.generate(
       7,
       (index) => Column(
@@ -281,9 +283,10 @@ class _MentalHealthState extends State<MentalHealth> {
               color: Colors.grey.shade100,
               shape: BoxShape.circle,
             ),
-            child: Text(
+            child: Image.asset(
               moods[index],
-              style: const TextStyle(fontSize: 20),
+              width: 24,
+              height: 24,
             ),
           ),
           const SizedBox(height: 4),
@@ -300,23 +303,30 @@ class _MentalHealthState extends State<MentalHealth> {
   }
 
   Widget _buildMoodIndicator(Mood mood) {
-    String emoji;
+    String assetPath;
     switch (mood) {
+      case Mood.superHappy:
+        assetPath = 'lib/assets/Images/emotions/Emotionsuper happy.png';
+        break;
       case Mood.happy:
-        emoji = '😊';
+        assetPath = 'lib/assets/Images/emotions/Emotionhappy.png';
         break;
       case Mood.neutral:
-        emoji = '😐';
+        assetPath = 'lib/assets/Images/emotions/Emotionnuetral.png';
         break;
       case Mood.sad:
-        emoji = '😢';
+        assetPath = 'lib/assets/Images/emotions/Emotionsadd.png';
+        break;
+      case Mood.angry:
+        assetPath = 'lib/assets/Images/emotions/Emotionangry.png';
         break;
     }
 
     return Center(
-      child: Text(
-        emoji,
-        style: const TextStyle(fontSize: 16),
+      child: Image.asset(
+        assetPath,
+        width: 24,
+        height: 24,
       ),
     );
   }
@@ -330,19 +340,49 @@ class _MentalHealthState extends State<MentalHealth> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: const Text('😊', style: TextStyle(fontSize: 24)),
+              leading: Image.asset(
+                'lib/assets/Images/emotions/Emotionsuper happy.png',
+                width: 24,
+                height: 24,
+              ),
+              title: const Text('Super Happy'),
+              onTap: () => _saveMood(day, Mood.superHappy),
+            ),
+            ListTile(
+              leading: Image.asset(
+                'lib/assets/Images/emotions/Emotionhappy.png',
+                width: 24,
+                height: 24,
+              ),
               title: const Text('Happy'),
               onTap: () => _saveMood(day, Mood.happy),
             ),
             ListTile(
-              leading: const Text('😐', style: TextStyle(fontSize: 24)),
+              leading: Image.asset(
+                'lib/assets/Images/emotions/Emotionnuetral.png',
+                width: 24,
+                height: 24,
+              ),
               title: const Text('Neutral'),
               onTap: () => _saveMood(day, Mood.neutral),
             ),
             ListTile(
-              leading: const Text('😢', style: TextStyle(fontSize: 24)),
+              leading: Image.asset(
+                'lib/assets/Images/emotions/Emotionsadd.png',
+                width: 24,
+                height: 24,
+              ),
               title: const Text('Sad'),
               onTap: () => _saveMood(day, Mood.sad),
+            ),
+            ListTile(
+              leading: Image.asset(
+                'lib/assets/Images/emotions/Emotionangry.png',
+                width: 24,
+                height: 24,
+              ),
+              title: const Text('Angry'),
+              onTap: () => _saveMood(day, Mood.angry),
             ),
           ],
         ),
@@ -356,13 +396,4 @@ class _MentalHealthState extends State<MentalHealth> {
     });
     Navigator.pop(context);
   }
-}
-
-enum Mood { happy, neutral, sad }
-
-class MoodData {
-  final Mood mood;
-  final String? note;
-
-  MoodData({required this.mood, this.note});
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lafia/screens/Mental-heath-score/mentalhealthchat.dart';
 import 'package:lafia/screens/Mental-heath-score/mentalscore.dart';
 import 'package:lafia/screens/Mental-heath-score/moodstatistics.dart';
 import 'package:lafia/widgets/custom_progress.dart';
@@ -108,12 +109,12 @@ class _HealthMatrixState extends State<HealthMatrix> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.favorite, color: Colors.white),
-                const SizedBox(width: 4),
-                const Text(
-                  'Freud Score',
+                Icon(Icons.favorite, color: Colors.white),
+                SizedBox(width: 4),
+                Text(
+                  'health Score',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -165,7 +166,7 @@ class _HealthMatrixState extends State<HealthMatrix> {
         Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MoodStatiscies()),
+                          builder: (context) => const MentalHealth()),
                     );
       },
       child: Container(
@@ -179,11 +180,11 @@ class _HealthMatrixState extends State<HealthMatrix> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.mood_bad, color: Colors.white),
-                const SizedBox(width: 8),
-                const Text(
+                Icon(Icons.mood_bad, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
                   'Mood',
                   style: TextStyle(
                     color: Colors.white,
@@ -243,11 +244,11 @@ class _HealthMatrixState extends State<HealthMatrix> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.medical_services, color: Colors.white),
-                const SizedBox(width: 8),
-                const Text(
+                Icon(Icons.medical_services, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
                   'Health Journal',
                   style: TextStyle(
                     color: Colors.white,

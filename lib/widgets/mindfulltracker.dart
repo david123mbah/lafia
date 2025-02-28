@@ -263,12 +263,7 @@ class _MindFullTrackerState extends State<MindFullTracker> {
       rightImagePath: 'lib/assets/Images/mood_right.png',
       onTap: () {
         // Handle tap
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MentalHealth(),
-          ),
-        );
+        
       },
       trailing: Row(
         children: [
