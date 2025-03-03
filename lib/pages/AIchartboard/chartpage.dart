@@ -118,8 +118,8 @@ class _ChartPageState extends State<ChartPage>
                           children: [
                             Column(
                               children: [
-                                Row(
-                                  children: const [
+                                const Row(
+                                  children: [
                                     Icon(
                                       Icons.access_time,
                                       color: Colors.white,
@@ -190,7 +190,7 @@ class _ChartPageState extends State<ChartPage>
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ChartScreen(),
+                                    builder: (context) => const ChartScreen(),
                                   ),
                                 );
                               },
@@ -222,7 +222,7 @@ class _ChartPageState extends State<ChartPage>
                   child: Row(
                     children: [
                       // Left side with AI character
-                      Container(
+                      SizedBox(
                         width: 120,
                         child: Image.asset(
                           'lib/assets/Images/emotions/bmcm.png',

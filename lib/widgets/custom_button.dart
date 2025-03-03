@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.all(15),  
         margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 12),  
         decoration: BoxDecoration(  
-          color: AppColors.brown400, // Change this to use the color from your class  
+          color: AppColors.secondary, // Change this to use the color from your class  
           borderRadius: BorderRadius.circular(30),  
         ),  
         child: Center(  

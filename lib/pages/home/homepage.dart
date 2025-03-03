@@ -1,6 +1,55 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:lafia/widgets/matrix.dart';
-import 'package:lafia/widgets/mindfulltracker.dart';
+import 'package:lafia/utils/colors.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
+class MindfulnessCardPainter extends CustomPainter {
+  final double cornerRadius;
+
+  MindfulnessCardPainter({this.cornerRadius = 16.0});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          AppColors.lightBlue.withOpacity(0.8),
+          AppColors.lightBlue.withOpacity(0.6),
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..style = PaintingStyle.fill;
+
+    // Draw rounded rectangle for card
+    final RRect roundedRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      Radius.circular(cornerRadius),
+    );
+
+    canvas.drawRRect(roundedRect, paint);
+
+    // Add subtle highlight on top edge
+    final Paint highlightPaint = Paint()
+      ..color = Colors.white.withOpacity(0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    final Path highlightPath = Path()
+      ..moveTo(cornerRadius, 0)
+      ..lineTo(size.width - cornerRadius, 0)
+      ..arcToPoint(
+        Offset(size.width, cornerRadius),
+        radius: Radius.circular(cornerRadius),
+      );
+
+    canvas.drawPath(highlightPath, highlightPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,230 +58,260 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
-  bool _isScrolled = false;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
+
+  final List<Map<String, dynamic>> _mindfulnessCards = [
+    {'title': 'Meditate', 'icon': Icons.self_improvement},
+    {'title': 'Sleep', 'icon': Icons.bedtime},
+    {'title': 'Breath', 'icon': Icons.air},
+    {'title': 'Affirmate', 'icon': Icons.spa},
+  ];
+
+  late AnimationController _headerController;
+  late AnimationController _searchController;
+  late AnimationController _gridController;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      setState(() {
-        _isScrolled = _scrollController.offset > 50;
-      });
-    });
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 3),
+    _headerController = AnimationController(
       vsync: this,
+      duration: const Duration(milliseconds: 1200),
     );
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeIn,
+
+    _searchController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
     );
-    _animationController.forward();
+
+    _gridController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    // Staggered animation sequence
+    Future.delayed(const Duration(milliseconds: 100), () {
+      _headerController.forward();
+    });
+
+    Future.delayed(const Duration(milliseconds: 600), () {
+      _searchController.forward();
+    });
+
+    Future.delayed(const Duration(milliseconds: 900), () {
+      _gridController.forward();
+    });
+
+    _scrollController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
+    _headerController.dispose();
+    _searchController.dispose();
+    _gridController.dispose();
     _scrollController.dispose();
-    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F1),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(48),
-              bottomRight: Radius.circular(48),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.getBackgroundGradient(),
+        ),
+        child: SafeArea(
           child: CustomScrollView(
             controller: _scrollController,
             slivers: [
-              SliverAppBar(
-                expandedHeight: 200,
-                floating: false,
-                pinned: true,
-                elevation: 0,
-                backgroundColor: Colors.white,
-                automaticallyImplyLeading: false, // Remove the back arrow
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(48),
-                    bottomRight: Radius.circular(48),
-                  ),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(48),
-                        bottomRight: Radius.circular(48),
+              // Welcome Header
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Logo and brand
+                      FadeTransition(
+                        opacity: CurvedAnimation(
+                          parent: _headerController,
+                          curve:
+                              const Interval(0.0, 0.5, curve: Curves.easeOut),
+                        ),
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, -0.5),
+                            end: Offset.zero,
+                          ).animate(CurvedAnimation(
+                            parent: _headerController,
+                            curve:
+                                const Interval(0.0, 0.5, curve: Curves.easeOut),
+                          )),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/Images/Freemindm.png',
+                                height: 30,
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'FREEMIND',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.2,
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 50),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                      const SizedBox(height: 24),
+
+                      // Welcome text
+                      FadeTransition(
+                        opacity: CurvedAnimation(
+                          parent: _headerController,
+                          curve:
+                              const Interval(0.3, 0.8, curve: Curves.easeOut),
+                        ),
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, -0.3),
+                            end: Offset.zero,
+                          ).animate(CurvedAnimation(
+                            parent: _headerController,
+                            curve:
+                                const Interval(0.3, 0.8, curve: Curves.easeOut),
+                          )),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Morning, Jean!',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF2D2D2D),
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Start your mindfulness journey',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF5A5A5A),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+
+                      // Search bar
+                      FadeTransition(
+                        opacity: _searchController,
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, 0.3),
+                            end: Offset.zero,
+                          ).animate(_searchController),
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
                               children: [
-                                Image.asset(
-                                  'lib/assets/Images/Monotone calendar.png',
-                                  height: 24,
-                                  color: const Color(0xFF8C8C8C),
+                                const SizedBox(width: 16),
+                                Icon(
+                                  Icons.search,
+                                  color: Colors.grey.shade400,
+                                  size: 20,
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Tue, 25 Jan 2025',
+                                Text(
+                                  'Search mindfulness exercises',
                                   style: TextStyle(
-                                    color: Color(0xFF8C8C8C),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: Colors.grey.shade500,
                                   ),
                                 ),
                               ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Stack(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 24,
-                                    backgroundColor: Colors.white,
-                                    child: Image.asset(
-                                      'lib/assets/Images/Monotone notification.png',
-                                      height: 24,
-                                      color: const Color(0xFF8C8C8C),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFFFF9F43),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Text(
-                                        '3',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: const CircleAvatar(
-                                radius: 40,
-                                backgroundImage: AssetImage(
-                                    'lib/assets/Images/Ellipse 1.png'),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Hi, Jean DOTY!',
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2D2D2D),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                   
-                                    const SizedBox(width: 8),
-                                    _buildBadge(
-                                      color: const Color(0xFFF3E5F5),
-                                      icon:
-                                          'lib/assets/Images/Solid menu score.png',
-                                      text: '80%',
-                                      iconColor: const Color(0xFF9C27B0),
-                                      textColor: const Color(0xFF9C27B0),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    _buildBadge(
-                                      color: const Color(0xFFFFF3E0),
-                                      icon:
-                                          'lib/assets/Images/Solid mood happy.png',
-                                      text: 'Happy',
-                                      iconColor: const Color(0xFFFF9800),
-                                      textColor: const Color(0xFFFF9800),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 10),
+
+              // Mindfulness Cards Grid - Staggered Animation
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.4,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return FadeTransition(
+                        opacity: CurvedAnimation(
+                          parent: _gridController,
+                          curve: Interval(
+                            (index * 0.2).clamp(0.0, 1.0),
+                            min((index * 0.2 + 0.2), 1.0),
+                            curve: Curves.easeOut,
+                          ),
+                        ),
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, 0.3),
+                            end: Offset.zero,
+                          ).animate(CurvedAnimation(
+                            parent: _gridController,
+                            curve: Interval(
+                              (index * 0.2).clamp(0.0, 1.0),
+                              min((index * 0.2 + 0.2), 1.0),
+                              curve: Curves.easeOut,
+                            ),
+                          )),
+                          child: _buildMindfulnessCard(
+                            _mindfulnessCards[index]['title'],
+                            _mindfulnessCards[index]['icon'],
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: _mindfulnessCards.length,
+                  ),
+                ),
               ),
+
+              // Additional space at bottom
               const SliverToBoxAdapter(
-                child: HealthMatrix(), // Add your HealthMatrix widget here
-              ),
-              const SliverToBoxAdapter(
-                child: MindFullTracker(), // Add your HealthMatrix widget here
+                child: SizedBox(height: 100),
               ),
             ],
           ),
@@ -241,36 +320,60 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildBadge({
-    required Color color,
-    required String icon,
-    required String text,
-    required Color iconColor,
-    required Color textColor,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
+  Widget _buildMindfulnessCard(String title, IconData iconData) {
+    return CustomPaint(
+      painter: MindfulnessCardPainter(),
+      child: Stack(
         children: [
-          Image.asset(icon, height: 16, color: iconColor),
-          const SizedBox(width: 4),
-          Text(
-            text,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+          // Main content
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Icon(
+                    iconData,
+                    color: AppColors.darkBlue.withOpacity(0.3),
+                    size: 36,
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF2D2D2D),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Play button
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: AppColors.secondary,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ],

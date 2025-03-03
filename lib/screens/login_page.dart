@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                         'Sign In to lafia.ai',
                         style: TextStyles.heading2xlBold.copyWith(
                           fontSize: 28,
-                          color: AppColors.brown300,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ).animate().fadeIn(delay: 500.ms, duration: 800.ms),
@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                           const Text(
                             " Email Address ",
                             style: TextStyle(
-                              color: AppColors.brown100,
+                              color: AppColors.primary,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                           const Text(
                             " Password ",
                             style: TextStyle(
-                              color: AppColors.brown100,
+                              color: AppColors.primary,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -236,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
                             const Text(
                               "Don't have an Account? ",
                               style: TextStyle(
-                                color: AppColors.brown400,
+                                color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: const Text(
                                 "Sign In",
                                 style: TextStyle(
-                                  color: AppColors.brown200,
+                                  color: AppColors.secondary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )

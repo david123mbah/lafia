@@ -1,7 +1,6 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // constants.dart
 class Constants {

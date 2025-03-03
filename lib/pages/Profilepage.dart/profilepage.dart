@@ -28,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
         height: 72,
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: isDanger ? AppColors.gray200 : Colors.white,
+          color: isDanger ? AppColors.primary : Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: isDanger
-                  ? AppColors.brown200
+                  ? AppColors.secondary
                   : Colors.grey.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title,
             style: TextStyle(
               fontSize: 16,
-              color: isDanger ? AppColors.brown100 : AppColors.brown400,
+              color: isDanger ? AppColors.primary : AppColors.secondary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     'elementary221b@gmail.com',
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.brown300,
+                      color: AppColors.primary,
                     ),
                   ),
                   SizedBox(height: 4),

@@ -721,7 +721,7 @@ class _ExpressionAnalysisPageState extends State<_ExpressionAnalysisPage> {
                   'Find your inner peace ,Healing mind, body, and soul',
                   style: TextStyle(
                     fontSize: 16,
-                    color: AppColors.brown100,
+                    color: AppColors.primary,
                   ),
                   textAlign: TextAlign.center,
                 ),

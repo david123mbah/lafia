@@ -206,8 +206,7 @@ class _RegisterpageState extends State<Registerpage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(
-          255, 247, 246, 241), // Match the background color
+      backgroundColor: AppColors.background, // Match the background color
       body: FadeTransition(
         opacity: _fadeAnimation,
         child: SingleChildScrollView(
@@ -247,7 +246,7 @@ class _RegisterpageState extends State<Registerpage>
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.brown100,
+                            color: AppColors.primary,
                           ),
                         ),
                       ),
@@ -259,7 +258,7 @@ class _RegisterpageState extends State<Registerpage>
                           const Text(
                             " Email Address ",
                             style: TextStyle(
-                              color: AppColors.brown100,
+                              color: AppColors.primary,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -275,7 +274,7 @@ class _RegisterpageState extends State<Registerpage>
                           const Text(
                             " Password ",
                             style: TextStyle(
-                              color: AppColors.brown200,
+                              color: AppColors.primary,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -293,7 +292,7 @@ class _RegisterpageState extends State<Registerpage>
                           const Text(
                             " Confirm Password ",
                             style: TextStyle(
-                              color: AppColors.brown200,
+                              color: AppColors.primary,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -325,7 +324,7 @@ class _RegisterpageState extends State<Registerpage>
                             "I Agree with the Terms & Conditions",
                             style: TextStyle(
                               fontSize: 14,
-                              color: AppColors.brown100,
+                              color: AppColors.primary,
                             ),
                           ),
                         ],
@@ -375,14 +374,14 @@ class _RegisterpageState extends State<Registerpage>
                               Text(
                                 "Already have an account? ",
                                 style: TextStyle(
-                                  color: AppColors.brown400,
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
                                 " Sign In",
                                 style: TextStyle(
-                                  color: AppColors.brown200,
+                                  color: AppColors.secondary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
